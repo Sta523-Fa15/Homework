@@ -1,0 +1,8 @@
+box: rocker/hadleyverse
+
+build:
+  steps:
+    - script:
+        name: Render R markdown
+        code: |
+          Rscript -e "library(rmarkdown);render('hw0.Rmd')"

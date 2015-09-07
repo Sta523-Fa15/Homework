@@ -1,0 +1,32 @@
+Homework 0 - TeamName
+========================================================
+
+### Implementation
+
+<!--
+Use this section to implement the fizzbuzz function.
+
+This should include a short write up describing your appraoch
+to implementing the function. Not both code formating / style
+and your writeup matter for your overall grade.
+-->
+
+```{r}
+fizzbuzz = function(n)
+{
+
+}
+```
+
+### Output
+
+<!--
+Use this section to show the output of your 
+fizzbuzz function for integer values from 1 to 100.
+
+No writeup is necessary for this section.
+-->
+
+```{r}
+
+```
