@@ -12,4 +12,6 @@ for(file in dir())
   }
 }
 
-stopifnot(pass)
+if (!pass)
+    stop("Disallowed files found:\n\n")
+
