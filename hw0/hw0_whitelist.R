@@ -1,6 +1,6 @@
 allowed_files = c("hw0.Rmd",
-                  "README.md,
-                  wercker.yml")
+                  "README.md",
+                  "wercker.yml")
 
 pass = TRUE
 for(file in dir())
