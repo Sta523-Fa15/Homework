@@ -1,5 +1,13 @@
 context("Test min_span_tree")
 
+if (!file.exists("extra_credit.R"))
+  skip("Not implemented")
+else
+  source("extra_credit.R")
+
+if (!exists("min_span_tree"))
+  skip("Not implemented")
+
 
 test_that("Check arg lists", {
   expect_equal(names(formals(min_span_tree)), c("g"))

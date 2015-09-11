@@ -1,9 +1,3 @@
-library(testthat)
-
-#stopifnot(file.exists("graph.R"))
-#source("graph.R")
-
-
 context("Test is_connected")
 
 
