@@ -1,12 +1,14 @@
 context("Test min_span_tree")
 
-if (!file.exists("extra_credit.R"))
+if (!file.exists("extra_credit.R")) {
   skip("Not implemented")
-else
+} else {
   source("extra_credit.R")
+}
 
-if (!exists("min_span_tree"))
+if (!exists("min_span_tree")) {
   skip("Not implemented")
+}
 
 
 test_that("Check arg lists", {
