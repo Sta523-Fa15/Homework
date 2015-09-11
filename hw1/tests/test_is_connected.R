@@ -3,9 +3,14 @@ library(testthat)
 #stopifnot(file.exists("graph.R"))
 #source("graph.R")
 
-is_connected = function(g,x,y) TRUE
 
 context("Test is_connected")
+
+
+test_that("Check arg lists", {
+  expect_equal(names(formals(is_connected)), c("g","v1","v2"))
+})
+
 
 test_that("Connected graphs", {
   g1 = list(A = list(edges   = c(1L),
@@ -37,32 +42,32 @@ test_that("Connected graphs", {
                      weights = numeric()))
 
 
-  expect_true(is_connected(g1,1,1))
+  expect_true(is_connected(g1,"A","A"))
 
-  expect_true(is_connected(g2,1,1))
-  expect_true(is_connected(g2,1,2))
-  expect_true(is_connected(g2,2,1))
-  expect_true(is_connected(g2,2,2))
+  expect_true(is_connected(g2,"A","A"))
+  expect_true(is_connected(g2,"A","B"))
+  expect_true(is_connected(g2,"B","A"))
+  expect_true(is_connected(g2,"B","B"))
 
-  expect_true(is_connected(g3,1,1))
-  expect_true(is_connected(g3,1,2))
-  expect_true(is_connected(g3,2,1))
-  expect_true(is_connected(g3,2,3))
-  expect_true(is_connected(g3,3,2))
-  expect_true(is_connected(g3,3,3))
+  expect_true(is_connected(g3,"A","A"))
+  expect_true(is_connected(g3,"A","B"))
+  expect_true(is_connected(g3,"B","A"))
+  expect_true(is_connected(g3,"B","C"))
+  expect_true(is_connected(g3,"C","B"))
+  expect_true(is_connected(g3,"C","C"))
 
 
-  expect_true(is_connected(g4,1,2))
-  expect_true(is_connected(g4,1,3))
-  expect_true(is_connected(g4,1,4))
-  expect_true(is_connected(g4,1,5))
-  expect_true(is_connected(g4,1,6))
+  expect_true(is_connected(g4,"A","B"))
+  expect_true(is_connected(g4,"A","C"))
+  expect_true(is_connected(g4,"A","D"))
+  expect_true(is_connected(g4,"A","E"))
+  expect_true(is_connected(g4,"A","F"))
 
-  expect_false(is_connected(g4,6,1))
-  expect_false(is_connected(g4,6,2))
-  expect_false(is_connected(g4,6,3))
-  expect_false(is_connected(g4,6,4))
-  expect_false(is_connected(g4,6,5))
+  expect_false(is_connected(g4,"F","A"))
+  expect_false(is_connected(g4,"F","B"))
+  expect_false(is_connected(g4,"F","C"))
+  expect_false(is_connected(g4,"F","D"))
+  expect_false(is_connected(g4,"F","E"))
 })
 
 
@@ -83,20 +88,20 @@ test_that("Unconnected graphs", {
                      weights = c(1)))
 
 
-  expect_false(is_connected(g1,1,1))
+  expect_false(is_connected(g1,"A","A"))
 
-  expect_true(is_connected(g2,1,1))
-  expect_false(is_connected(g2,1,2))
-  expect_false(is_connected(g2,2,1))
-  expect_true(is_connected(g2,2,2))
+  expect_true( is_connected(g2,"A","A"))
+  expect_true( is_connected(g2,"B","B"))
+  expect_false(is_connected(g2,"A","B"))
+  expect_false(is_connected(g2,"B","A"))
 
-  expect_true(is_connected(g3,1,1))
-  expect_false(is_connected(g3,1,2))
-  expect_true(is_connected(g3,2,1))
-  expect_false(is_connected(g3,2,2))
-  expect_true(is_connected(g3,2,3))
-  expect_false(is_connected(g3,3,2))
-  expect_true(is_connected(g3,3,3))
+  expect_true( is_connected(g3,"A","A"))
+  expect_false(is_connected(g3,"A","B"))
+  expect_true( is_connected(g3,"B","A"))
+  expect_false(is_connected(g3,"B","B"))
+  expect_true( is_connected(g3,"B","C"))
+  expect_false(is_connected(g3,"C","B"))
+  expect_true( is_connected(g3,"C","C"))
 })
 
 test_that("Vertex labels", {
@@ -108,23 +113,19 @@ test_that("Vertex labels", {
             B = list(edges   = c(1L, 2L),
                      weights = c(1, 1)))
 
-  # Good labels
-
-  expect_true(is_connected(g1,1,1))
   expect_true(is_connected(g1,"A","A"))
-  expect_true(is_connected(g1,"A",1))
-  expect_true(is_connected(g1,1,"A"))
+  expect_error(is_connected(g1,1,1))
+  expect_error(is_connected(g1,"A",1))
+  expect_error(is_connected(g1,1,"A"))
 
-  expect_true(is_connected(g2,1,2))
   expect_true(is_connected(g2,"A","B"))
-  expect_true(is_connected(g2,"A",2))
-  expect_true(is_connected(g2,1,"B"))
+  expect_error(is_connected(g2,1,2))
+  expect_error(is_connected(g2,"A",2))
+  expect_error(is_connected(g2,1,"B"))
 
-  expect_true(is_connected(g1,1,1L))
-  expect_true(is_connected(g1,1L,1))
-  expect_true(is_connected(g1,1L,1L))
-
-  # Bad labels
+  expect_error(is_connected(g1,1,1L))
+  expect_error(is_connected(g1,1L,1))
+  expect_error(is_connected(g1,1L,1L))
 
   expect_error(is_connected(g1,1,3))
   expect_error(is_connected(g1,"A",3))
@@ -149,17 +150,20 @@ test_that("Vertex labels", {
 
 
 test_that("Bad graphs", {
-  bad_g1 = list(list())
-  bad_g2 = list(list(edges = 1L))
-  bad_g3 = list(list(weights = 1))
+  bad_g1 = list(A = list())
+  bad_g2 = list(A = list(edges = 1L))
+  bad_g3 = list(A = list(weights = 1))
+  bad_g4 = list(list(weights = 1, edges = 1L))
 
-  expect_error(is_connected(bad_g1,1,1))
-  expect_error(is_connected(bad_g2,1,1))
-  expect_error(is_connected(bad_g3,1,1))
+  expect_error(is_connected(bad_g1,"A","A"))
+  expect_error(is_connected(bad_g2,"A","A"))
+  expect_error(is_connected(bad_g3,"A","A"))
+  expect_error(is_connected(bad_g4,"A","A"))
 
-  expect_error(is_connected(1,1,1))
-  expect_error(is_connected(1L,1,1))
-  expect_error(is_connected("1",1,1))
-  expect_error(is_connected(TRUE,1,1))
+  expect_error(is_connected(1,     "A","A"))
+  expect_error(is_connected(1L,    "A","A"))
+  expect_error(is_connected("1",   "A","A"))
+  expect_error(is_connected(TRUE,  "A","A"))
+  expect_error(is_connected(c(A=1),"A","A"))
 })
 

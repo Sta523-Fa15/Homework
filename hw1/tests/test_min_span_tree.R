@@ -1,6 +1,11 @@
 context("Test min_span_tree")
 
 
+test_that("Check arg lists", {
+  expect_equal(names(formals(min_span_tree)), c("g"))
+})
+
+
 test_that("Small valid graphs", {
   
   g1 = list(list(edges   = integer(),

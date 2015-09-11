@@ -1,18 +1,23 @@
 context("Test shortest_path")
 
+test_that("Check arg lists", {
+  expect_equal(names(formals(shortest_path)), c("g","v1","v2"))
+})
+
+
 test_that("Bad graphs", {
-  bad_g1 = list(list())
-  bad_g2 = list(list(edges = 1L))
-  bad_g3 = list(list(weights = 1))
+  bad_g1 = list(A = list())
+  bad_g2 = list(A = list(edges = 1L))
+  bad_g3 = list(A = list(weights = 1))
 
-  expect_error(shortest_path(bad_g1,1,1))
-  expect_error(shortest_path(bad_g2,1,1))
-  expect_error(shortest_path(bad_g3,1,1))
+  expect_error(shortest_path(bad_g1,"A","A"))
+  expect_error(shortest_path(bad_g2,"A","A"))
+  expect_error(shortest_path(bad_g3,"A","A"))
 
-  expect_error(shortest_path(1,1,1))
-  expect_error(shortest_path(1L,1,1))
-  expect_error(shortest_path("1",1,1))
-  expect_error(shortest_path(TRUE,1,1))
+  expect_error(shortest_path(1,"A","A"))
+  expect_error(shortest_path(1L,"A","A"))
+  expect_error(shortest_path("1","A","A"))
+  expect_error(shortest_path(TRUE,"A","A"))
 })
 
 test_that("Unconnected graphs", {
@@ -31,24 +36,24 @@ test_that("Unconnected graphs", {
             C = list(edges   = c(3L),
                      weights = c(1)))
 
+
+  expect_identical(shortest_path(g2,"A","A"), c("A","A"))
+  expect_identical(shortest_path(g2,"B","B"), c("B","B"))
+  
+  expect_identical(shortest_path(g3,"A","A"), c("A","A"))
+  expect_identical(shortest_path(g3,"B","A"), c("B","A"))
+  expect_identical(shortest_path(g3,"B","C"), c("B","C"))
+  expect_identical(shortest_path(g3,"C","C"), c("C","C"))
+
+
   is_empty_atomic = function(x) is.atomic(x) & length(x) == 0
 
-  expect_identical(shortest_path(g2,1,1), c("A","A"))
-  expect_identical(shortest_path(g2,2,2), c("B","B"))
-  
-  expect_identical(shortest_path(g3,1,1), c("A","A"))
-  expect_identical(shortest_path(g3,2,1), c("B","A"))
-  expect_identical(shortest_path(g3,2,3), c("B","C"))
-  expect_identical(shortest_path(g3,3,3), c("C","C"))
-
-  expect_true(is_empty_atomic(shortest_path(g1,1,1)))
-
-  expect_true(is_empty_atomic(shortest_path(g2,1,2)))
-  expect_true(is_empty_atomic(shortest_path(g2,2,1)))
-
-  expect_true(is_empty_atomic(shortest_path(g3,1,2)))
-  expect_true(is_empty_atomic(shortest_path(g3,2,2)))
-  expect_true(is_empty_atomic(shortest_path(g3,3,2)))
+  expect_true(is_empty_atomic(shortest_path(g1,"A","A")))
+  expect_true(is_empty_atomic(shortest_path(g2,"A","B")))
+  expect_true(is_empty_atomic(shortest_path(g2,"B","A")))
+  expect_true(is_empty_atomic(shortest_path(g3,"A","B")))
+  expect_true(is_empty_atomic(shortest_path(g3,"B","B")))
+  expect_true(is_empty_atomic(shortest_path(g3,"C","B")))
 })
 
 
@@ -63,29 +68,24 @@ test_that("Vertex labels", {
                      weights = c(1, 1)))
 
   # Good labels
-  expect_identical(shortest_path(g1,1,1),     c("A","A"))
   expect_identical(shortest_path(g1,"A","A"), c("A","A"))
-  expect_identical(shortest_path(g1,"A",1),   c("A","A"))
-  expect_identical(shortest_path(g1,1,"A"),   c("A","A"))
-
-  expect_identical(shortest_path(g2,1,2),     c("A","B"))
   expect_identical(shortest_path(g2,"A","B"), c("A","B"))
-  expect_identical(shortest_path(g2,"A",2),   c("A","B"))
-  expect_identical(shortest_path(g2,1,"B"),   c("A","B"))
-
-  expect_identical(shortest_path(g1,1,1L),  c("A","A"))
-  expect_identical(shortest_path(g1,1L,1),  c("A","A"))
-  expect_identical(shortest_path(g1,1L,1L), c("A","A"))
 
   # Bad labels
 
-  expect_error(shortest_path(g1,1,3))
-  expect_error(shortest_path(g1,"A",3))
-  expect_error(shortest_path(g1,1,"C"))
+  expect_error(shortest_path(g1,1,1))
+  expect_error(shortest_path(g1,1,1L))
+  expect_error(shortest_path(g1,1L,1))
+  expect_error(shortest_path(g1,1L,1L))
+  expect_error(shortest_path(g1,"A",1))
+  expect_error(shortest_path(g1,1,"A"))
   expect_error(shortest_path(g1,"A","C"))
-
   expect_error(shortest_path(g1,1,TRUE))
   expect_error(shortest_path(g1,"A",TRUE))
+
+  expect_erorr(shortest_path(g2,1,2))
+  expect_erorr(shortest_path(g2,"A",2))
+  expect_erorr(shortest_path(g2,1,"B"))
 
   expect_error(shortest_path(g1,1,NaN))
   expect_error(shortest_path(g1,"A",NaN))
@@ -116,7 +116,7 @@ test_that("Connected graphs", {
                      weights = c(1, 1)),
             C = list(edges   = c(2L, 3L),
                      weights = c(1, 1)))
-  
+
   g4 = list(A = list(edges   = c(2L),
                      weights = c(1)),
             B = list(edges   = c(3L),
@@ -131,33 +131,33 @@ test_that("Connected graphs", {
                      weights = numeric()))
 
 
-  expect_identical(shortest_path(g1,1,1), c("A","A"))
+  expect_identical(shortest_path(g1,"A","A"), c("A","A"))
 
-  expect_identical(shortest_path(g2,1,1), c("A","A"))
-  expect_identical(shortest_path(g2,1,2), c("A","B"))
-  expect_identical(shortest_path(g2,2,1), c("B","A"))
-  expect_identical(shortest_path(g2,2,2), c("B","B"))
+  expect_identical(shortest_path(g2,"A","A"), c("A","A"))
+  expect_identical(shortest_path(g2,"A","B"), c("A","B"))
+  expect_identical(shortest_path(g2,"B","A"), c("B","A"))
+  expect_identical(shortest_path(g2,"B","B"), c("B","B"))
 
-  expect_identical(shortest_path(g3,1,1), c("A","A"))
-  expect_identical(shortest_path(g3,1,2), c("A","B"))
-  expect_identical(shortest_path(g3,2,1), c("B","A"))
-  expect_identical(shortest_path(g3,2,3), c("B","C"))
-  expect_identical(shortest_path(g3,3,2), c("C","B"))
-  expect_identical(shortest_path(g3,3,3), c("C","C"))
+  expect_identical(shortest_path(g3,"A","A"), c("A","A"))
+  expect_identical(shortest_path(g3,"A","B"), c("A","B"))
+  expect_identical(shortest_path(g3,"B","A"), c("B","A"))
+  expect_identical(shortest_path(g3,"B","C"), c("B","C"))
+  expect_identical(shortest_path(g3,"C","B"), c("C","B"))
+  expect_identical(shortest_path(g3,"C","C"), c("C","C"))
 
-  expect_identical(shortest_path(g4,1,2), c("A","B"))
-  expect_identical(shortest_path(g4,1,3), c("A","B","C"))
-  expect_identical(shortest_path(g4,1,4), c("A","B","C","D"))
-  expect_identical(shortest_path(g4,1,5), c("A","B","C","D","E"))
-  expect_identical(shortest_path(g4,1,6), c("A","B","C","D","E","F"))
+  expect_identical(shortest_path(g4,"A","B"), c("A","B"))
+  expect_identical(shortest_path(g4,"A","C"), c("A","B","C"))
+  expect_identical(shortest_path(g4,"A","D"), c("A","B","C","D"))
+  expect_identical(shortest_path(g4,"A","E"), c("A","B","C","D","E"))
+  expect_identical(shortest_path(g4,"A","F"), c("A","B","C","D","E","F"))
 
   is_empty_atomic = function(x) is.atomic(x) & length(x) == 0
 
-  expect_true(is_empty_atomic(shortest_path(g4,6,1)))
-  expect_true(is_empty_atomic(shortest_path(g4,6,2)))
-  expect_true(is_empty_atomic(shortest_path(g4,6,3)))
-  expect_true(is_empty_atomic(shortest_path(g4,6,4)))
-  expect_true(is_empty_atomic(shortest_path(g4,6,5)))
+  expect_true(is_empty_atomic(shortest_path(g4,"F","A")))
+  expect_true(is_empty_atomic(shortest_path(g4,"F","B")))
+  expect_true(is_empty_atomic(shortest_path(g4,"F","C")))
+  expect_true(is_empty_atomic(shortest_path(g4,"F","D")))
+  expect_true(is_empty_atomic(shortest_path(g4,"F","E")))
 })
 
 
