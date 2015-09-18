@@ -83,9 +83,9 @@ test_that("Vertex labels", {
   expect_error(shortest_path(g1,1,TRUE))
   expect_error(shortest_path(g1,"A",TRUE))
 
-  expect_erorr(shortest_path(g2,1,2))
-  expect_erorr(shortest_path(g2,"A",2))
-  expect_erorr(shortest_path(g2,1,"B"))
+  expect_error(shortest_path(g2,1,2))
+  expect_error(shortest_path(g2,"A",2))
+  expect_error(shortest_path(g2,1,"B"))
 
   expect_error(shortest_path(g1,1,NaN))
   expect_error(shortest_path(g1,"A",NaN))
