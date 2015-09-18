@@ -27,12 +27,23 @@ test_that("valid graphs", {
   g5 = list(B = list(weights = c(1),
                      edges   = c(1L)))
 
+  g6 = list(A = list(edges   = c(2L),
+                     weights = c(1)),
+            B = list(edges   = integer(),
+                     weights = numeric()))
+
+  g7 = list(A = list(edges   = c(1L,2L),
+                     weights = c(1,1)),
+            B = list(edges   = c(2L),
+                     weights = c(1)))
 
   expect_true(is_valid(g1))
   expect_true(is_valid(g2))
   expect_true(is_valid(g3))
   expect_true(is_valid(g4))
   expect_true(is_valid(g5))
+  expect_true(is_valid(g6))
+  expect_true(is_valid(g7))
 })
 
 test_that("Missing labels", {
