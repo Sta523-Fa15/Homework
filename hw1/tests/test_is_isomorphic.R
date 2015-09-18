@@ -83,7 +83,7 @@ test_that("Valid graphs", {
   expect_false(is_isomorphic(g4,g3))
 })
 
-test_that("Valid graphs - edge ordering", {
+test_that("Edge ordering", {
 
   g1 = list(A = list(edges   = c(1L,2L),
                      weights = c(1, 2 )),
@@ -105,10 +105,33 @@ test_that("Valid graphs - edge ordering", {
             A = list(edges   = c(2L,1L),
                      weights = c(2, 1 )))
 
+  bad_g1 = list(A = list(edges   = c(1L,2L),
+                         weights = c(2, 1 )),
+                B = list(edges   = 2L,
+                         weights = 1 ))
+
+  bad_g2 = list(B = list(edges   = 2L,
+                         weights = 1 ),
+                A = list(edges   = c(1L,2L),
+                         weights = c(2, 1 )))
+
+
   expect_true(is_isomorphic(g1,g2))
   expect_true(is_isomorphic(g1,g3))
   expect_true(is_isomorphic(g1,g4))
   expect_true(is_isomorphic(g2,g3))
   expect_true(is_isomorphic(g2,g4))
   expect_true(is_isomorphic(g3,g4))
+  
+  expect_false(is_isomorphic(g1,bad_g1))
+  expect_false(is_isomorphic(g2,bad_g1))
+  expect_false(is_isomorphic(g3,bad_g1))
+  expect_false(is_isomorphic(g4,bad_g1))
+  
+  expect_false(is_isomorphic(g1,bad_g2))
+  expect_false(is_isomorphic(g2,bad_g2))
+  expect_false(is_isomorphic(g3,bad_g2))
+  expect_false(is_isomorphic(g4,bad_g2))
+  
+  expect_true(is_isomorphic(bad_g1,bad_g2))
 })
