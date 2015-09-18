@@ -36,6 +36,14 @@ test_that("valid graphs", {
                      weights = c(1,1)),
             B = list(edges   = c(2L),
                      weights = c(1)))
+  
+  g8 = list(A = list(weights = c(1),
+                     edges   = c(1L)))
+
+  g9 = list("123" = list(edges   = c(2L),
+                         weights = c(1)),
+            "ABC" = list(edges   = c(1L),
+                         weights = c(1)))
 
   expect_true(is_valid(g1))
   expect_true(is_valid(g2))
