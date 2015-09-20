@@ -15,21 +15,21 @@ if (file.exists("extra_credit.R"))
 
     test_that("Small valid graphs", {
 
-      g1 = list(list(edges   = integer(),
-                     weights = numeric()))
+      g1 = list(A = list(edges   = integer(),
+                         weights = numeric()))
 
-      g2 = list(list(edges   = c(1L),
-                     weights = c(1 )))
+      g2 = list(A = list(edges   = c(1L),
+                         weights = c(1 )))
 
-      g3 = list(list(edges   = c(2L),
-                     weights = c(1 )),
-                list(edges   = c(1L),
-                     weights = c(1 )))
+      g3 = list(A = list(edges   = c(2L),
+                         weights = c(1 )),
+                B = list(edges   = c(1L),
+                         weights = c(1 )))
 
-      g4 = list(list(edges   = c(1L,2L),
-                     weights = c(1 ,1 )),
-                list(edges   = c(1L,2L),
-                     weights = c(1 ,1 )))
+      g4 = list(A = list(edges   = c(1L,2L),
+                         weights = c(1 ,1 )),
+                B = list(edges   = c(1L,2L),
+                         weights = c(1 ,1 )))
 
       mst_graph_len = function(g)
       {
@@ -75,13 +75,16 @@ if (file.exists("extra_credit.R"))
     })
 
     test_that("Invalid graph", {
-      bad_g1 = list(list())
-      bad_g2 = list(list(edges = 1L))
-      bad_g3 = list(list(weights = 1))
+      bad_g1 = list(A = list())
+      bad_g2 = list(A = list(edges = 1L))
+      bad_g3 = list(A = list(weights = 1))
+      bad_g4 = list(list(edges = 1L,
+                         weights = 1))
 
       expect_error(min_span_tree(bad_g1))
       expect_error(min_span_tree(bad_g2))
       expect_error(min_span_tree(bad_g3))
+      expect_error(min_span_tree(bad_g4))
     })
   }
 }
