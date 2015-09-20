@@ -90,7 +90,7 @@ test_that("Edge ordering", {
             B = list(edges   = 2L,
                      weights = 1 ))
 
-  g1 = list(A = list(edges   = c(2L,1L),
+  g2 = list(A = list(edges   = c(2L,1L),
                      weights = c(2, 1 )),
             B = list(edges   = 2L,
                      weights = 1 ))
