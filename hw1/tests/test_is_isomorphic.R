@@ -113,7 +113,7 @@ test_that("Edge ordering", {
   bad_g2 = list(B = list(edges   = 2L,
                          weights = 1 ),
                 A = list(edges   = c(1L,2L),
-                         weights = c(2, 1 )))
+                         weights = c(1, 2 )))
 
 
   expect_true(is_isomorphic(g1,g2))
