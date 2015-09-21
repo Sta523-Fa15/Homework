@@ -87,27 +87,27 @@ test_that("Edge ordering", {
 
   g1 = list(A = list(edges   = c(1L,2L),
                      weights = c(1, 2 )),
-            B = list(edges   = 2L,
+            B = list(edges   = 1L,
                      weights = 1 ))
 
   g2 = list(A = list(edges   = c(2L,1L),
                      weights = c(2, 1 )),
-            B = list(edges   = 2L,
+            B = list(edges   = 1L,
                      weights = 1 ))
 
   g3 = list(B = list(edges   = 2L,
                      weights = 1 ),
             A = list(edges   = c(1L,2L),
-                     weights = c(1, 2 )))
+                     weights = c(2, 1 )))
 
   g4 = list(B = list(edges   = 2L,
                      weights = 1 ),
             A = list(edges   = c(2L,1L),
-                     weights = c(2, 1 )))
+                     weights = c(1, 2 )))
 
   bad_g1 = list(A = list(edges   = c(1L,2L),
                          weights = c(2, 1 )),
-                B = list(edges   = 2L,
+                B = list(edges   = 1L,
                          weights = 1 ))
 
   bad_g2 = list(B = list(edges   = 2L,
