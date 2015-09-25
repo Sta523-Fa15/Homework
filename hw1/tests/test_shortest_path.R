@@ -130,6 +130,10 @@ test_that("Connected graphs", {
             F = list(edges   = integer(),
                      weights = numeric()))
 
+  g5 = list(A = list(edges   = c(1L, 2L),
+                     weights = c(10, 1)),
+            B = list(edges   = c(1L, 2L),
+                     weights = c(1,  10)))
 
   expect_identical(shortest_path(g1,"A","A"), c("A","A"))
 
@@ -150,6 +154,11 @@ test_that("Connected graphs", {
   expect_identical(shortest_path(g4,"A","D"), c("A","B","C","D"))
   expect_identical(shortest_path(g4,"A","E"), c("A","B","C","D","E"))
   expect_identical(shortest_path(g4,"A","F"), c("A","B","C","D","E","F"))
+
+  expect_identical(shortest_path(g5,"A","A"), c("A","B","A"))
+  expect_identical(shortest_path(g5,"A","B"), c("A","B"))
+  expect_identical(shortest_path(g5,"B","A"), c("B","A"))
+  expect_identical(shortest_path(g5,"B","B"), c("B","A","B"))
 
   is_empty_atomic = function(x) is.atomic(x) & length(x) == 0
 
