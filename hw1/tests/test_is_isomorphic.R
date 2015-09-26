@@ -135,3 +135,17 @@ test_that("Edge ordering", {
   
   expect_true(is_isomorphic(bad_g1,bad_g2))
 })
+
+#test_that("Subsets", {
+#  g1 = list(A = list(edges   = integer(),
+#                     weights = numeric()  ))
+#  
+#  g2 = list(A = list(edges   = integer(),
+#                     weights = numeric()  ),
+#            B = list(edges   = 1L,
+#                     weights = 1  ))
+#  
+#  expect_false(is_isomorphic(g1,g2))
+#  expect_false(is_isomorphic(g2,g1))
+#})
+  
