@@ -80,8 +80,14 @@ test_that("Directed - Edges",{
             B = list(edges   = c(2L),
                      weights = c(1)))
 
+  g3 = list(A = list(edges   = integer(),
+                     weights = numeric())
+            B = list(edges   = 1L,
+                     weights = 1))
+
   expect_false(is_undirected(g1))
   expect_false(is_undirected(g2))
+  expect_false(is_undirected(g3))
 })
 
 test_that("Directed - Weights",{
