@@ -67,11 +67,13 @@ test_that("Missing labels", {
 })
 
 test_that("Bad structure", {
+  bad_g0 = list()
   bad_g1 = list(list())
   bad_g2 = list(list(edges = 1L))
   bad_g3 = list(list(weights = 1))
 
 
+  expect_false(is_valid(bad_g0))
   expect_false(is_valid(bad_g1))
   expect_false(is_valid(bad_g2))
   expect_false(is_valid(bad_g3))
