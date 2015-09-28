@@ -39,7 +39,7 @@ test_that("Unconnected graphs", {
 
   expect_identical(shortest_path(g2,"A","A"), c("A","A"))
   expect_identical(shortest_path(g2,"B","B"), c("B","B"))
-  
+
   expect_identical(shortest_path(g3,"A","A"), c("A","A"))
   expect_identical(shortest_path(g3,"B","A"), c("B","A"))
   expect_identical(shortest_path(g3,"B","C"), c("B","C"))

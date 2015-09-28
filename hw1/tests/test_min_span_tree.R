@@ -81,7 +81,7 @@ test_that("Med valid graph", {
 test_that("Invalid graph", {
   if (!exists("min_span_tree"))
     skip("Not implemented")
-  
+
   bad_g1 = list(A = list())
   bad_g2 = list(A = list(edges = 1L))
   bad_g3 = list(A = list(weights = 1))

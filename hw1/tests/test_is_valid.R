@@ -36,7 +36,7 @@ test_that("valid graphs", {
                      weights = c(1,1)),
             B = list(edges   = c(2L),
                      weights = c(1)))
-  
+
   g8 = list(A = list(weights = c(1),
                      edges   = c(1L)))
 
