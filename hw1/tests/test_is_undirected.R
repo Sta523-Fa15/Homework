@@ -81,7 +81,7 @@ test_that("Directed - Edges",{
                      weights = c(1)))
 
   g3 = list(A = list(edges   = integer(),
-                     weights = numeric())
+                     weights = numeric()),
             B = list(edges   = 1L,
                      weights = 1))
 
