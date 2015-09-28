@@ -127,7 +127,7 @@ test_that("Vertex labels", {
   expect_error(is_connected(g1,"A","C"))
 
   expect_error(is_connected(g1,c("A","A"),"C"))
-  expect_error(is_connected(g1,"A",c("C","C"))))
+  expect_error(is_connected(g1,"A",c("C","C")))
   expect_error(is_connected(g1,c("A","A"),c("C","C")))
 
   expect_error(is_connected(g1,1,TRUE))
