@@ -1,0 +1,23 @@
+## Grading Rubric
+
+* Only work turned in  by the deadline + <5 minutes should be considered
+
+* 20 pts total for the assignment
+
+* -1 pt for each failed test on wercker (expectation is that all tests should pass)
+
+* -5 pts if Rmd does not compile, -2 if it is only a small fix (e.g. bad setwd, or missing package) - full deduction if the problem cannot be solved in less than a couple minutes. 
+
+* Each of the 5 functions (is_valid, is_connected, is_isomorphic, is_undirected, and shortest_path) are graded on a 4 point scale that includes the following criteria:
+
+  * Quality of write up
+  * Quality of code
+    * Elegance of approach / code
+    * Clarity of code (this includes things like comments, variable names, etc.)
+    * Consistency of coding style
+    * Code efficiency (painfully inefficient code will be penalized)
+
+* Feedback should include suggestions on how to improve the code / writeup (opened as issues or pull requests on github).
+
+* Extra Credit - up to +2 for each question, use the same criteria as other functions
+
