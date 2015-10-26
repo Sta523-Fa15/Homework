@@ -1,5 +1,6 @@
-library(jsonlite)
-library(rgdal)
+suppressMessages(library(jsonlite))
+suppressMessages(library(rgdal))
+suppressMessages(library(rgeos))
 
 args = commandArgs(trailingOnly = TRUE)
 
@@ -29,6 +30,6 @@ for(b in bb@data$BoroName)
     score = score + suppressWarnings(gArea(gSymdifference(pred[pred_i,], bb[bb_i,])))
 }
 
-score = score / gArea(bb)
+score = score / suppressWarnings(gArea(bb))
 
 writeLines(toJSON(list("score" = score), auto_unbox=TRUE), paste0(team,".json"))
