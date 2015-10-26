@@ -15,7 +15,6 @@ if (!file.exists("boroughs.json"))
 pred = readOGR("boroughs.json", layer="OGRGeoJSON", verbose=FALSE)
 load(file = "nybb.Rdata")
 
-
 stopifnot("Name" %in% names(pred@data))
 
 score = 0
