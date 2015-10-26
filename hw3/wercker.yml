@@ -28,5 +28,16 @@ build:
           curl -s "https://api.orchestrate.io/v0/HW3/Team9"  -u "$ORCH:" > Team9.json
           curl -s "https://api.orchestrate.io/v0/HW3/Team10" -u "$ORCH:" > Team10.json
           curl -s "https://api.orchestrate.io/v0/HW3/TeamExample" -u "$ORCH:" > TeamExample.json
-
-          Rscript -e "library(jsonlite); for(i in 1:10) print(fromJSON(paste0('Team',i,'.json')))"
+    - script:
+      name: Update scores
+      code: |
+          Rscript -e "source('https://raw.githubusercontent.com/Sta523-Fa15/Homework/master/hw3/update_score.R')" $TEAM
+          curl -s "https://api.orchestrate.io/v0/HW3/$TEAM" \
+            -XPUT \
+            -H "Content-Type: application/json" \
+            -u "$ORCH:" \
+            -d "@$TEAM.json"
+    - script:
+      name: Show Leaderboard
+      code: |
+        Rscript -e "source('https://raw.githubusercontent.com/Sta523-Fa15/Homework/master/hw3/leaderboard.R')"

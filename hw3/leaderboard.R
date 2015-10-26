@@ -11,4 +11,4 @@ d = data.frame(
 
 s = order(d$scores,decreasing=FALSE)
 
-kable(d[s,],row.names = FALSE)
+print( kable(d[s,],row.names = FALSE) )
