@@ -3,14 +3,18 @@ box: rocker/hadleyverse
 build:
   steps:
     - script:
+        name: Update Packages
+        code: |
+          Rscript -e "update.packages(ask = FALSE)"
+    - script:
         name: Check for allowed files
         code: |
           Rscript -e "source('https://raw.githubusercontent.com/Sta523-Fa15/Homework/master/hw2/hw2_whitelist.R')"
     - script:
         name: Check make runs
         code: |
-          printf "-78.9389,36.0011,100\n" > dennys_coords.csv
-          printf '"Connecticut"\n' > test.txt > lq_states.csv
+          printf "%f,%f,%d\n" -78.9389 36.0011 100 > dennys_coords.csv
+          printf '"Connecticut"\n' > lq_states.csv
           make
           Rscript -e "stopifnot(file.exists('hw2.html'))"
     - script:
