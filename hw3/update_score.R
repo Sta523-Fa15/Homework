@@ -12,7 +12,8 @@ if (!file.exists("boroughs.json"))
     stop("No boroughs.json to score!")    
 } 
 
-pred = readOGR("boroughs.json", layer="OGRGeoJSON", verbose=FALSE)
+pred = gBuffer(readOGR("boroughs.json", layer="OGRGeoJSON", verbose=FALSE),
+               width=0, byid=TRUE)
 load(file = "nybb.Rdata")
 
 stopifnot("Name" %in% names(pred@data))
