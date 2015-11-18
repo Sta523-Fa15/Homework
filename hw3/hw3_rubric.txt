@@ -1,0 +1,28 @@
+## Grading Rubric - HW3
+
+* 20 pts total for the assignment
+
+* Assignment should either have a single Rmd file, if there are more scripts needed then they should have a Makefile. It should be straightforward how to run their code and get the correct output. If you can't get their code to run then apply an appropriate penalty (10-20% depending on severity)
+
+* Code should run in less than 2 hrs on saxon
+
+* Task 1 (8 pts) - Geocoding
+    * Overall count of geocoded addresses isn't very important unless it is too large (>2 million) or too small (< 100,000).
+    * Approach is more important, check for methods and overall quality - don't have to use both pluto and intersection data but feel free to reward those who did.
+    * Check for appropriate merges - are they creating duplicates?
+    * Check write-up details approach
+
+* Task 2 (8 pts) - Borough Boundary Prediction
+    * Overall approach is the most important thing
+    * Check modeling approach 
+        - how did they deal with the issue of ocean / river areas?
+        - did they go above and beyond the code provided in class?
+        - how did they handle the scale of the data? Did they model everything or a subset?
+    * Check write-up details approach
+
+
+* Task 3 (4 pts) - Visualization
+    * Visualization should be something interesting
+    * Check the code and implementation - usual code quality criteria apply
+
+* Feedback should include suggestions on how to improve the code / writeup (opened as issues on github).
